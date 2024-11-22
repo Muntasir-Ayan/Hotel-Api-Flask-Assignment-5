@@ -109,15 +109,20 @@ class Login(Resource):
         data = request.json
         users = get_users()
         user = next((u for u in users if u['email'] == data['email']), None)
+        
+        # Validate user credentials
         if not user or not bcrypt.checkpw(data['password'].encode('utf-8'), user['password'].encode('utf-8')):
             return {'message': 'Invalid credentials'}, 401
 
-        # Generate JWT token
+        # Generate JWT token including the user's role
         token = jwt.encode({
             'email': user['email'],
+            'role': user['role'],  # Add the role to the token
             'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=1)
         }, app.config['SECRET_KEY'], algorithm='HS256')
+
         return {'token': token}, 200
+
 
 @user_ns.route('/profile')
 class Profile(Resource):

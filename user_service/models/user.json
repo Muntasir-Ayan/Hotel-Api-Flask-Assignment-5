@@ -14,7 +14,7 @@
     {
         "name": "Admin User",
         "email": "admin@example.com",
-        "password": "$2b$12$NNLoHE7RIi8tuhHJ9Y7SYuY8ghqzpWIyYg9.HKBrSh0l8g3R9MbVW",
+        "password": "$2b$12$Rusw4/bxW08fEVbOLAJvjOAUZd0Rra/H4zRMNacxdp6bgX6fj4wxm",
         "role": "Admin"
     }
 ]
