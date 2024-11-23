@@ -57,7 +57,8 @@ class Profile(Resource):
         
         # Forward request to user_service to get user profile
         user_profile = requests.get(f"{USER_SERVICE_URL}/users/profile", headers={'Authorization': f'Bearer {token}'})
-        
+
+
         if user_profile.status_code == 200:
             return user_profile.json(), 200
         else:
@@ -66,8 +67,24 @@ class Profile(Resource):
 
 @auth_ns.route('/destinations')
 class Destinations(Resource):
+    @auth_ns.doc(security='Bearer')  # This route requires a valid token
     def get(self):
-        """Get the list of all destinations (no token required)"""
+        """Get the list of all destinations (only accessible to authenticated users)"""
+        auth_header = request.headers.get('Authorization')
+        if not auth_header or not auth_header.startswith('Bearer '):
+            return {'message': 'Token is missing or invalid'}, 401
+
+        token = auth_header.split(' ')[1]
+        decoded_token = verify_token(token)
+        
+        if not decoded_token:
+            return {'message': 'Invalid or expired token'}, 401
+
+        # Optionally, you can check the role of the user
+        user_role = decoded_token.get('role')
+        if user_role not in ['User', 'Admin']:
+            return {'message': 'You do not have permission to access destinations'}, 403
+
         # Forward request to destination_service to get the list of destinations
         destinations = requests.get(f"{DESTINATION_SERVICE_URL}/destinations")
         
