@@ -13,7 +13,7 @@
 {
   "name": "Admin User",
   "email": "admin@example.com",
-  "password": "adminpassword",
+  "password": "Password@1",
   "role": "Admin",
   "secret_key": "supersecretkey"
 }
@@ -22,6 +22,11 @@
   "password": "password123"
 }
 
+User
+{
+    "email": "mj@gmail.com",
+    "password": "PassWord@1"
+}
 
 
 

@@ -1,3 +1,4 @@
+import re
 from flask import Flask, request
 from flask_restx import Api, Resource, fields
 import json
@@ -38,23 +39,27 @@ destination_model = api.model('Destination', {
 
 def get_destinations():
     """Load the destination data from the file"""
-    with open(DEST_FILE, 'r') as f:
-        return json.load(f)
+    try:
+        with open(DEST_FILE, 'r') as f:
+            return json.load(f)
+    except Exception as e:
+        return {'message': f'Error reading destinations: {str(e)}'}, 500
 
 def save_destinations(destinations):
     """Save destination data to the file"""
-    with open(DEST_FILE, 'w') as f:
-        json.dump(destinations, f, indent=4)
+    try:
+        with open(DEST_FILE, 'w') as f:
+            json.dump(destinations, f, indent=4)
+    except Exception as e:
+        return {'message': f'Error saving destinations: {str(e)}'}, 500
 
 def verify_admin_token(auth_header):
     """Verify if the user has admin privileges"""
     if not auth_header or not auth_header.startswith('Bearer '):
         return False
     token = auth_header.split(' ')[1]  # Extract token from the header
-    print(f"Received token: {token}")  # Debugging statement to check the token
     try:
         decoded = jwt.decode(token, SECRET_KEY, algorithms=['HS256'])
-        print(f"Decoded token: {decoded}")  # Debugging statement to check the decoded token
         return decoded.get('role') == 'Admin'  # Check if role is Admin
     except jwt.ExpiredSignatureError:
         return False
@@ -69,6 +74,8 @@ class Destinations(Resource):
     def get(self):
         """List all destinations"""
         destinations = get_destinations()
+        if isinstance(destinations, dict):  # In case of error
+            return destinations
         return destinations, 200
 
     @dest_ns.expect(destination_model)
@@ -80,6 +87,10 @@ class Destinations(Resource):
             return {'message': 'Admin token required'}, 403  # Forbidden if not Admin
 
         data = request.json
+        # Validate the input
+        if not data.get('name') or not data.get('description') or not data.get('location'):
+            return {'message': 'All fields (name, description, location) are required.'}, 400
+        
         destinations = get_destinations()
 
         # Check if a destination with the same name already exists
@@ -90,7 +101,7 @@ class Destinations(Resource):
         destinations.append(data)
         save_destinations(destinations)
         return {'message': 'Destination added'}, 201
-    
+
 @dest_ns.route('/<string:name>')
 class Destination(Resource):
     @dest_ns.doc(security='Bearer')  # Security required for this endpoint
@@ -108,25 +119,7 @@ class Destination(Resource):
             return {'message': 'Destination deleted'}, 200
         else:
             return {'message': 'Destination not found'}, 404
-    
-@dest_ns.route('/<string:name>')
-class Destination(Resource):
-    @dest_ns.doc(security='Bearer')  # Security required for this endpoint
-    def delete(self, name):
-        """Delete a destination (admin-only)"""
-        auth_header = request.headers.get('Authorization')
-        if not verify_admin_token(auth_header):
-            return {'message': 'Admin token required'}, 403  # Forbidden if not Admin
 
-        destinations = get_destinations()
-        destination = next((dest for dest in destinations if dest['name'] == name), None)
-        if destination:
-            destinations.remove(destination)
-            save_destinations(destinations)
-            return {'message': 'Destination deleted'}, 200
-        else:
-            return {'message': 'Destination not found'}, 404
-    
     @dest_ns.expect(destination_model)  # Expect the new destination data
     @dest_ns.doc(security='Bearer')  # Security required for this endpoint
     def put(self, name):
@@ -137,6 +130,9 @@ class Destination(Resource):
 
         # Fetch the updated data from the request body
         data = request.json
+        if not data.get('description') and not data.get('location'):
+            return {'message': 'At least one of description or location must be provided to update.'}, 400
+
         destinations = get_destinations()
 
         # Find the destination by name
@@ -144,13 +140,15 @@ class Destination(Resource):
 
         if destination:
             # Update the destination's description and location
-            destination['description'] = data.get('description', destination['description'])
-            destination['location'] = data.get('location', destination['location'])
+            if 'description' in data:
+                destination['description'] = data['description']
+            if 'location' in data:
+                destination['location'] = data['location']
             save_destinations(destinations)
             return {'message': 'Destination updated'}, 200
         else:
             return {'message': 'Destination not found'}, 404
 
-             
+
 if __name__ == '__main__':
     app.run(port=5002, debug=True)
