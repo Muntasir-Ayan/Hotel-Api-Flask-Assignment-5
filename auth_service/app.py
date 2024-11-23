@@ -92,6 +92,6 @@ class Destinations(Resource):
             return destinations.json(), 200
         else:
             return {'message': 'Failed to retrieve destinations from Destination Service'}, 500
-
+        
 if __name__ == '__main__':
     app.run(port=5003, debug=True)

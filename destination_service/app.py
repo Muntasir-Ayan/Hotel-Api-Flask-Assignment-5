@@ -90,7 +90,7 @@ class Destinations(Resource):
         destinations.append(data)
         save_destinations(destinations)
         return {'message': 'Destination added'}, 201
-
+    
 @dest_ns.route('/<string:name>')
 class Destination(Resource):
     @dest_ns.doc(security='Bearer')  # Security required for this endpoint
@@ -108,6 +108,49 @@ class Destination(Resource):
             return {'message': 'Destination deleted'}, 200
         else:
             return {'message': 'Destination not found'}, 404
+    
+@dest_ns.route('/<string:name>')
+class Destination(Resource):
+    @dest_ns.doc(security='Bearer')  # Security required for this endpoint
+    def delete(self, name):
+        """Delete a destination (admin-only)"""
+        auth_header = request.headers.get('Authorization')
+        if not verify_admin_token(auth_header):
+            return {'message': 'Admin token required'}, 403  # Forbidden if not Admin
 
+        destinations = get_destinations()
+        destination = next((dest for dest in destinations if dest['name'] == name), None)
+        if destination:
+            destinations.remove(destination)
+            save_destinations(destinations)
+            return {'message': 'Destination deleted'}, 200
+        else:
+            return {'message': 'Destination not found'}, 404
+    
+    @dest_ns.expect(destination_model)  # Expect the new destination data
+    @dest_ns.doc(security='Bearer')  # Security required for this endpoint
+    def put(self, name):
+        """Edit a destination's description and location (admin-only)"""
+        auth_header = request.headers.get('Authorization')
+        if not verify_admin_token(auth_header):
+            return {'message': 'Admin token required'}, 403  # Forbidden if not Admin
+
+        # Fetch the updated data from the request body
+        data = request.json
+        destinations = get_destinations()
+
+        # Find the destination by name
+        destination = next((dest for dest in destinations if dest['name'] == name), None)
+
+        if destination:
+            # Update the destination's description and location
+            destination['description'] = data.get('description', destination['description'])
+            destination['location'] = data.get('location', destination['location'])
+            save_destinations(destinations)
+            return {'message': 'Destination updated'}, 200
+        else:
+            return {'message': 'Destination not found'}, 404
+
+             
 if __name__ == '__main__':
     app.run(port=5002, debug=True)

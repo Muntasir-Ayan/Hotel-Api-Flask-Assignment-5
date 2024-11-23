@@ -1,10 +1,5 @@
 [
     {
-        "name": "Paris",
-        "description": "The capital city of France, known for its art, fashion, and culture.",
-        "location": "France"
-    },
-    {
         "name": "New York City",
         "description": "A major American city known for its iconic skyline, Broadway, and diverse culture.",
         "location": "USA"
@@ -33,5 +28,10 @@
         "name": "London",
         "description": "The capital city of England and the United Kingdom, known for its history, culture, and landmarks like Big Ben and the British Museum.",
         "location": "UK"
+    },
+    {
+        "name": "Paris",
+        "description": "The capital city of France, known for its art, fashion, and culture.",
+        "location": "France"
     }
 ]
