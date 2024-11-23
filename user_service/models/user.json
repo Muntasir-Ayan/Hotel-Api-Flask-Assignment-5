@@ -16,5 +16,11 @@
         "email": "john.doe@example.com",
         "password": "$2b$12$uFHjqp9Omw9m/BsR4EmAdu3mRhTNcvhaRKZx1D0xHowjNJuZwPjpO",
         "role": "User"
+    },
+    {
+        "name": "AyanJ",
+        "email": "am@gmail.com",
+        "password": "$2b$12$zrbN9qJrSpbe2LrlsfF5O.lM0GQ10KY583VIw3qKxQQXblVf0ICKW",
+        "role": "Admin"
     }
 ]
