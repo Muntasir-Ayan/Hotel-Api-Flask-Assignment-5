@@ -18,9 +18,15 @@
         "role": "User"
     },
     {
-        "name": "Admin User",
-        "email": "admin@example.com",
-        "password": "$2b$12$tnAMWbJZgicPSSKyr.hFqO3eiahfrgHkgsFn4XTwKvUEtQlwzQT3G",
+        "name": "Test User",
+        "email": "testuser@example.com",
+        "password": "$2b$12$YtIU596ohIyCICCb8nVFxuPq3ydey1BP.I3YZg.vjSCssfgeYZjuG",
+        "role": "User"
+    },
+    {
+        "name": "Admin",
+        "email": "ad@gmail.com",
+        "password": "$2b$12$EqTpzhGUkge5gzeo.A/nUe33pbEc9GG5Kl2mjNfn3SF9ohV1xvzve",
         "role": "Admin"
     }
 ]

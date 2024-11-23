@@ -28,6 +28,15 @@ User
     "password": "PassWord@1"
 }
 
+Admin
+{
+  "name": "Admin",
+  "email": "ad@gmail.com",
+  "password": "Admin@12",
+  "role": "Admin",
+  "secret_key": "supersecretkey"
+}
+
 
 
 
