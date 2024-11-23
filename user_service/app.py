@@ -100,7 +100,7 @@ class Register(Resource):
         save_users(users)
 
         # Return the response with the assigned role
-        return {'message': f'User registered successfully as {role}'}, 201
+        return {'message': f'{new_user["name"]} registered successfully as {role}'}, 201
 
 @user_ns.route('/login')
 class Login(Resource):
@@ -120,7 +120,7 @@ class Login(Resource):
             'role': user['role'],  # Add the role to the token
             'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=1)
         }, app.config['SECRET_KEY'], algorithm='HS256')
-
+        print(token)
         return {'token': token}, 200
 
 
