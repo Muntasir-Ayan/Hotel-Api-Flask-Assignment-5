@@ -1,37 +1,44 @@
 [
     {
         "name": "New York City",
-        "description": "A major American city known for its iconic skyline, Broadway, and diverse culture.",
-        "location": "USA"
+        "description": "The capital city of France, known for its art, fashion, and culture.",
+        "location": "France",
+        "id": 2
     },
     {
         "name": "Cape Town",
         "description": "A city in South Africa known for its stunning beaches, mountains, and history.",
-        "location": "South Africa"
+        "location": "South Africa",
+        "id": 3
     },
     {
         "name": "Sydney",
         "description": "The largest city in Australia, famous for its harbor, beaches, and landmarks like the Sydney Opera House.",
-        "location": "Australia"
+        "location": "Australia",
+        "id": 4
     },
     {
         "name": "Rome",
         "description": "The capital city of Italy, known for its nearly 3,000 years of globally influential art, architecture, and culture.",
-        "location": "Italy"
+        "location": "Italy",
+        "id": 5
     },
     {
         "name": "Dubai",
         "description": "A futuristic city in the United Arab Emirates known for its luxurious shopping, ultramodern architecture, and nightlife scene.",
-        "location": "UAE"
+        "location": "UAE",
+        "id": 6
     },
     {
         "name": "London",
         "description": "The capital city of England and the United Kingdom, known for its history, culture, and landmarks like Big Ben and the British Museum.",
-        "location": "UK"
+        "location": "UK",
+        "id": 7
     },
     {
         "name": "Paris",
-        "description": "The capital city of France, known for its art, fashion, and culture.",
-        "location": "France"
+        "description": "The capital city of Love, known for its art, fashion, and culture.",
+        "location": "France",
+        "id": 8
     }
 ]

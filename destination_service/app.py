@@ -66,6 +66,12 @@ def verify_admin_token(auth_header):
     except jwt.InvalidTokenError:
         return False
 
+def generate_id(destinations):
+    """Generate a new unique ID for a destination"""
+    if destinations:
+        return max(dest['id'] for dest in destinations) + 1
+    return 1  # Start with 1 if no destinations exist
+
 # Create an API namespace for destinations
 dest_ns = api.namespace('destinations', description='Destination operations')
 
@@ -97,28 +103,32 @@ class Destinations(Resource):
         if any(dest['name'].lower() == data['name'].lower() for dest in destinations):
             return {'message': 'Destination with this name already exists'}, 400  # Bad request if duplicate found
 
-        # If no duplicate, add the new destination
+        # If no duplicate, add the new destination with a generated ID
+        data['id'] = generate_id(destinations)
         destinations.append(data)
         save_destinations(destinations)
         return {'message': 'Destination added'}, 201
 
-@dest_ns.route('/<string:name>')
+@dest_ns.route('/<int:id>')
 class Destination(Resource):
     @dest_ns.doc(security='Bearer')  # Security required for this endpoint
-    def delete(self, name):
-        """Delete a destination (admin-only)"""
+    def delete(self, id):
+        """Delete a destination by ID (admin-only)"""
         auth_header = request.headers.get('Authorization')
         if not verify_admin_token(auth_header):
             return {'message': 'Admin token required'}, 403  # Forbidden if not Admin
 
         destinations = get_destinations()
-        destination = next((dest for dest in destinations if dest['name'] == name), None)
+        destination = next((dest for dest in destinations if dest['id'] == id), None)
         if destination:
             destinations.remove(destination)
             save_destinations(destinations)
             return {'message': 'Destination deleted'}, 200
         else:
             return {'message': 'Destination not found'}, 404
+        
+@dest_ns.route('/<string:name>')
+class Destination(Resource):
 
     @dest_ns.expect(destination_model)  # Expect the new destination data
     @dest_ns.doc(security='Bearer')  # Security required for this endpoint
@@ -148,7 +158,6 @@ class Destination(Resource):
             return {'message': 'Destination updated'}, 200
         else:
             return {'message': 'Destination not found'}, 404
-
 
 if __name__ == '__main__':
     app.run(port=5002, debug=True)
