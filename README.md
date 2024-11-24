@@ -115,14 +115,18 @@ Each service provides a Swagger UI at the root endpoint (/) for testing and expl
 | GET        | `/users/profile`   | Get user profile details     | Yes (JWT)          |
 
 ### Destination Service
-| **Method** | **Endpoint**       | **Description**              | **Authentication** |
-|------------|--------------------|------------------------------|--------------------|
-| GET        | `/destinations`    | Retrieve hotel destinations  | No                 |
+| **Method** | **Endpoint**          | **Description**                 | **Authentication** |
+|------------|-----------------------|---------------------------------|--------------------|
+| GET        | `/destinations`       | Retrieve hotel destinations     | No                 |
+| POST       | `/destinations`       | Add hotel destinations(Admin)   | Yes (JWT)          |
+| DELETE     | `/destinations/{ID}`  | Delete hotel destinations(Admin)| Yes (JWT)          |
+| PUT        | `/destinations/{Name}`| Update hotel destinations(Admin)| Yes (JWT)          |
 
 ### Authentication Service
-| **Method** | **Endpoint**       | **Description**              | **Authentication** |
-|------------|--------------------|------------------------------|--------------------|
-| POST       | `/auth/login`      | Authenticate and get token   | No                 |
+| **Method** | **Endpoint**            | **Description**              | **Authentication** |
+|------------|-------------------------|------------------------------|--------------------|
+| GET        | `/auth/profile`         | Get user profile details     | Yes (JWT)          |
+| GET        | `/users/destinations`   | Retrieve hotel destinations  | Yes (JWT)          |
 
 ## Running Tests
 To run unit tests for each microservice:
