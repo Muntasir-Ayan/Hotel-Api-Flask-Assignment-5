@@ -40,5 +40,17 @@
         "description": "The capital city of Love, known for its art, fashion, and culture.",
         "location": "France",
         "id": 8
+    },
+    {
+        "description": "New Description",
+        "location": "Updated Location",
+        "name": "New York",
+        "id": 9
+    },
+    {
+        "description": "City of Traffic",
+        "location": "Bangladesh",
+        "name": "Dhaka",
+        "id": 10
     }
 ]
