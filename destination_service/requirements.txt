@@ -1,4 +1,8 @@
 Flask
+requests
 Flask-RESTX
 pytest
+pytest-mock
+bcrypt
 pyjwt
+pytest-cov
