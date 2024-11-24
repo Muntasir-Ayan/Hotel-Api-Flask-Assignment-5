@@ -28,5 +28,17 @@
         "email": "ad@gmail.com",
         "password": "$2b$12$EqTpzhGUkge5gzeo.A/nUe33pbEc9GG5Kl2mjNfn3SF9ohV1xvzve",
         "role": "Admin"
+    },
+    {
+        "name": "Admin User",
+        "email": "admin@example.com",
+        "password": "$2b$12$BaovHsqZMhFgbVWlOhoVzuxdYSFPnxJBCAVIeFGwQUav3RwI3GM32",
+        "role": "User"
+    },
+    {
+        "name": "Admin-1",
+        "email": "admin1@example.com",
+        "password": "$2b$12$k8ePZ10J.4mu/Txf1GABwOHw4bjoJjWN9jk2gW4XKTOBqGtqkW4Xq",
+        "role": "Admin"
     }
 ]

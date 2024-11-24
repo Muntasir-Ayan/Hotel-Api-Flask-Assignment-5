@@ -45,12 +45,6 @@
         "description": "New Description",
         "location": "Updated Location",
         "name": "New York",
-        "id": 9
-    },
-    {
-        "description": "City of Traffic",
-        "location": "Bangladesh",
-        "name": "Dhaka",
-        "id": 10
+        "id": 11
     }
 ]
