@@ -132,5 +132,5 @@ To run unit tests for each microservice:
     cd user_service  # or destination_service, auth_service
 2. Run tests using pytest:
     ```bash
-    pytest
+    pytest --cov=app --cov-report=term-missing
 
