@@ -1,0 +1,6 @@
+Flask
+Flask-RESTX
+pytest
+pytest-mock
+bcrypt
+pyjwt
