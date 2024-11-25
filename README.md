@@ -103,7 +103,7 @@ Runs on http://127.0.0.1:5002.
 Runs on http://127.0.0.1:5003.
 
 ##API Documentation
-Each service provides a Swagger UI at the root endpoint (/) for testing and exploring available APIs. Below is a summary of key endpoints:
+Each service provides a Swagger UI at the root endpoint (/) for testing and exploring available APIs. Below is a summary of key endpoints: <br>
 (After login token will generate, for authorize "Bearer <Token>" have to provide. <br>
 For admin register, "secret_key": "supersecretkey")
 
