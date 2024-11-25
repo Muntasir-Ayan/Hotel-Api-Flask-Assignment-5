@@ -40,17 +40,5 @@
         "description": "The capital city of France, known for its art, fashion, and culture.",
         "location": "France",
         "id": 12
-    },
-    {
-        "description": "City of Traffic",
-        "location": "Bangladesh",
-        "name": "Dhaka",
-        "id": 13
-    },
-    {
-        "description": "New Description",
-        "location": "Updated Location",
-        "name": "New York",
-        "id": 14
     }
 ]
