@@ -104,6 +104,8 @@ Runs on http://127.0.0.1:5003.
 
 ##API Documentation
 Each service provides a Swagger UI at the root endpoint (/) for testing and exploring available APIs. Below is a summary of key endpoints:
+(After login token will generate, for authorize "Bearer <Token>" have to provide. <br>
+For admin register, "secret_key": "supersecretkey")
 
 ## API Endpoints
 
@@ -127,8 +129,7 @@ Each service provides a Swagger UI at the root endpoint (/) for testing and expl
 |------------|-------------------------|------------------------------|--------------------|
 | GET        | `/auth/profile`         | Get user profile details     | Yes (JWT)          |
 | GET        | `/users/destinations`   | Retrieve hotel destinations  | Yes (JWT)          |
-(After login token will generate, for authorize "Bearer <Token>" have to provide. <br>
-For admin register, "secret_key": "supersecretkey")
+
 
 ## Running Tests
 To run unit tests for each microservice:
