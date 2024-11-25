@@ -68,7 +68,7 @@ Ensure you have the following installed:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/yourusername/Hotel-Api-Flask-Assignment-5.git
+   git clone https://github.com/Muntasir-Ayan/Hotel-Api-Flask-Assignment-5.git
    cd Hotel-Api-Flask-Assignment-5
 
 
@@ -127,6 +127,8 @@ Each service provides a Swagger UI at the root endpoint (/) for testing and expl
 |------------|-------------------------|------------------------------|--------------------|
 | GET        | `/auth/profile`         | Get user profile details     | Yes (JWT)          |
 | GET        | `/users/destinations`   | Retrieve hotel destinations  | Yes (JWT)          |
+(After login token will generate, for authorize "Bearer <Token>" have to provide. <br>
+For admin register, "secret_key": "supersecretkey")
 
 ## Running Tests
 To run unit tests for each microservice:
@@ -134,7 +136,7 @@ To run unit tests for each microservice:
 1. Navigate to the microservice directory:
     ```bash
     cd user_service  # or destination_service, auth_service
-2. Run tests using pytest:
+2. Run tests using pytest with coverage:
     ```bash
     pytest --cov=app --cov-report=term-missing
 
